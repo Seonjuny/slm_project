@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: slm-lab-service
+  labels:
+    app: slm-lab
+spec:
+  type: LoadBalancer   # 필요에 따라 NodePort / ClusterIP로 변경 가능
+  selector:
+    app: slm-lab
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+

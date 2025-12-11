@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slm-lab
+  labels:
+    app: slm-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slm-lab
+  template:
+    metadata:
+      labels:
+        app: slm-lab
+    spec:
+      containers:
+        - name: slm-lab
+          image: your-registry.example.com/slm-lab:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: LLM_BASE_URL
+              value: "http://llm-server:11434"   # 클러스터 내 LLM 서비스 이름 기준
+            - name: LLM_MODEL_ID
+              value: "qwen2.5-14b-q4k"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+

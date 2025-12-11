@@ -1,0 +1,134 @@
+<!-- static/index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>🦙 Local RAG Lab</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>🦙 Local RAG Lab</h1>
+      <p>Qwen2.5 14B Q4_K + 숙박 &amp; 착한 가격 가게 RAG 실험실</p>
+    </header>
+
+    <!-- 챗봇 선택 섹션 -->
+    <section class="bot-select-section">
+      <div class="bot-card bot-card-lodging" data-bot="lodging">
+        <div class="bot-icon">🏡</div>
+        <h2>숙박 데이터 챗봇</h2>
+        <p>공공 숙박업 데이터 기반으로<br />영업 상태, 객실 수, 통계를 분석해주는 집 같은 느낌의 챗봇</p>
+      </div>
+
+      <div class="bot-card bot-card-cheap" data-bot="cheap">
+        <div class="bot-icon">🍜</div>
+        <h2>착한 가격 가게 챗봇</h2>
+        <p>시도/시군/업종/가격 조건으로<br />가성비 좋은 가게를 추천해주는 음식 특화 챗봇</p>
+      </div>
+    </section>
+
+    <!-- 실제 챗 영역 -->
+    <main class="chat-wrapper">
+      <aside class="bot-sidebar">
+        <button id="tab-lodging" class="bot-tab active" data-bot="lodging">🏡 숙박</button>
+        <button id="tab-cheap" class="bot-tab" data-bot="cheap">🍜 착한 가격 가게</button>
+      </aside>
+
+      <section class="chat-main">
+        <!-- Lodging Panel -->
+        <div id="panel-lodging" class="chat-panel active">
+          <div class="panel-header lodging-header">
+            <h2>🏡 숙박 데이터 분석 챗봇</h2>
+            <p>“영업/정상 업소가 더 많은가?”, “다중이용업소 비율은?” 같은 질문을 해보세요.</p>
+          </div>
+
+          <div class="filter-row">
+            <label>
+              <input type="checkbox" id="lodging-active-only" checked />
+              영업/정상 업소만
+            </label>
+            <label>
+              건물 소유 구분:
+              <input type="text" id="lodging-owner-type" placeholder="예: 자가, 임대, 미기재" />
+            </label>
+            <label>
+              다중이용업소:
+              <select id="lodging-multi-only">
+                <option value="any">상관 없음</option>
+                <option value="true">Y만</option>
+                <option value="false">N만</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="chat-window" id="chat-window-lodging"></div>
+
+          <div class="chat-input-area">
+            <textarea
+              id="input-lodging"
+              rows="3"
+              placeholder="숙박 데이터에 대해 궁금한 점을 질문해보세요."
+            ></textarea>
+            <div class="chat-actions">
+              <select id="lodging-model-select">
+                <option value="">기본 모델 (Qwen2.5 14B Q4_K)</option>
+              </select>
+              <button id="send-lodging" class="primary-btn">보내기</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cheap Panel -->
+        <div id="panel-cheap" class="chat-panel">
+          <div class="panel-header cheap-header">
+            <h2>🍜 착한 가격 가게 챗봇</h2>
+            <p>“서울 종로구에서 5천원 이하 식당 알려줘” 같은 질문을 해보세요.</p>
+          </div>
+
+          <div class="filter-row">
+            <label>
+              시도:
+              <input type="text" id="cheap-sido" placeholder="예: 서울특별시" />
+            </label>
+            <label>
+              시군:
+              <input type="text" id="cheap-sigungu" placeholder="예: 종로구" />
+            </label>
+            <label>
+              업종:
+              <input type="text" id="cheap-category" placeholder="예: 한식, 양식, 미용업 ..." />
+            </label>
+            <label>
+              최대 가격:
+              <input type="number" id="cheap-max-price" placeholder="예: 5000" />
+            </label>
+          </div>
+
+          <div class="chat-window" id="chat-window-cheap"></div>
+
+          <div class="chat-input-area">
+            <textarea
+              id="input-cheap"
+              rows="3"
+              placeholder="착한 가격 가게에 대해 궁금한 점을 질문해보세요."
+            ></textarea>
+            <div class="chat-actions">
+              <select id="cheap-model-select">
+                <option value="">기본 모델 (Qwen2.5 14B Q4_K)</option>
+              </select>
+              <button id="send-cheap" class="primary-btn">보내기</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>🦙 Local RAG Lab · FastAPI + Qwen2.5 14B Q4_K · 숙박 &amp; 착한 가격 가게</span>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Modelfile
+
+# 1) 베이스 Qwen 모델
+FROM qwen2.5:14b
+
+# 2) 양자화 관련 메모 (그냥 주석으로만 남겨)
+# PARAMETER quantize q4_K_M  ← 이건 그냥 텍스트 메모일 뿐, 실제로 안 쓰임
+
+# 3) 나중에 원하면 TEMPLATE / SYSTEM 추가
+# TEMPLATE """{{ .Prompt }}"""

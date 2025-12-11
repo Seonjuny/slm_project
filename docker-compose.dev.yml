@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: slm-dev
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    # ✅ 여기서 호스트 코드를 그대로 컨테이너에 붙여줌
+    volumes:
+      - ./app:/app/app
+      - ./static:/app/static
+    # ✅ dev 전용: 코드 바뀌면 자동 reload
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
