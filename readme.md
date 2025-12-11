@@ -1,5 +1,3 @@
-# readme
-
 # 📘 SLM 로컬 RAG Demo
 
 공공데이터 기반 숙박/착한가격 음식점을 로컬 LLM(Qwen2.5)으로 검색·추천해주는 RAG 기반 서비스
